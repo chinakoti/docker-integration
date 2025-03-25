@@ -49,7 +49,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>docker-integration</finalName>
+		<finalName>docker-integration1</finalName>
 	</build>
 
 </project>

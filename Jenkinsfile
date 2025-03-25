@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven_3_9_4'
+    }
+    stages{
+        stage('Build Maven'){
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '1db0c9b8-b3c3-464c-8718-065d4ea9f587', url: 'https://github.com/chinakoti/docker-integration.git']])
+                 bat 'mvn clean install'
+            }
+        }
+        stage("Build Docker Image"){
+            steps{
+                script{
+                    bat "docker build -t chinakoti/docker-integration1 . "
+                }
+            }
+        }
+        stage('Push Docker Image'){
+            steps{
+                script{
+                    bat "docker login -u chinakoti -p ThaniShanvi@143"
+                    bat "docker push chinakoti/docker-integration1"
+                }
+                
+            }
+        }
+    }
+    
+}
